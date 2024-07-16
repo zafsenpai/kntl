@@ -69,6 +69,7 @@ var proxies = readLines(args.proxyFile);
 
 if (cluster.isMaster) {
 	console.clear()
+	console.log('@bexnxx')
 	console.log(`--------------------------------------------`)
 	console.log(`Target: ` + process.argv[2])
 	console.log(`Time: ` + process.argv[3])
