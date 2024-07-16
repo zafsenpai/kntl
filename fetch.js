@@ -5,7 +5,7 @@
  const url = require("url");
  const crypto = require("crypto");
  const fs = require("fs");
- const os = require('os');
+ const os = require('os'); 
  const { HeaderGenerator } = require('header-generator');
 let headerGenerator = new HeaderGenerator({
     browsers: [
