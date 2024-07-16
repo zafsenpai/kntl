@@ -110,7 +110,7 @@ if (cluster.isMaster) {
 		const totalRAM = os.totalmem();
 		const usedRAM = totalRAM - os.freemem();
 		const ramPercentage = (usedRAM / totalRAM) * 100;
-		if (ramPercentage >= 80) {
+		if (ramPercentage >= 50) {
 			console.log('[!] Maximum RAM usage:', ramPercentage.toFixed(2), '%');
 			restartScript();
 		}
