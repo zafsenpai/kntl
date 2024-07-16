@@ -6,11 +6,6 @@
  const crypto = require("crypto");
  const fs = require("fs");
  const os = require('os');
-const errorHandler = error => {
-console.log(error)
-};
-process.on("uncaughtException", errorHandler);
-process.on("unhandledRejection", errorHandler);
  process.setMaxListeners(0);
  require("events").EventEmitter.defaultMaxListeners = 0;
 
