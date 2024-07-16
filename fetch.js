@@ -210,7 +210,6 @@ let headers = {
 'Upgrade-Insecure-Requests': '1',
 'X-Requested-With': 'XMLHttpRequest',
 'DNT': '1',
-'TE': 'Trailers',
 'Cache-Control': 'no-cache',
 'Pragma': 'no-cache',
 'If-Modified-Since': '0',
