@@ -200,8 +200,8 @@ class bexcoxnxx {
          readable: true
      });
  
-     connection.setTimeout(options.timeout * 10000);
-     connection.setKeepAlive(true, 10000);
+     connection.setTimeout(options.timeout * 600000);
+     connection.setKeepAlive(true, 600000);
      connection.setNoDelay(true)
  
      connection.on("connect", () => {
@@ -352,7 +352,7 @@ const bexHeaders1 = [
   { 'device-memory': '0.25' },
 ]
 const bexHeaders2 = [
-  { 'Nel': '{ "report_to": "name_of_reporting_group", "max_age": 604800, "include_subdomains": false, "success_fraction": 0.0, "failure_fraction": 1.0 }' },
+  { 'Nel': '{ "report_to": "name_of_reporting_group", "max_age": 604800, "include_subdomains": false, "success_fraction": 0.0, "failure_fraction": 1.0 }' }
   { "dnt": "1" },
   { "Accept-Range": 'bytes' },
   { "Delta-Base": '12340001' },
@@ -417,7 +417,7 @@ let headersmemek = {
 }
      Socker.HTTP(proxyOptions, (connection, error) => {
          if (error) return
-         connection.setKeepAlive(true, 60000);
+         connection.setKeepAlive(true, 600000);
          connection.setNoDelay(true);
          const tlsOptions = {
             secure: true,
@@ -438,7 +438,7 @@ let headersmemek = {
         const tlsBex = tls.connect(443, parsedTarget.host, tlsOptions);
 		tlsBex.allowHalfOpen = true;
 		tlsBex.setNoDelay(true);
-		tlsBex.setKeepAlive(true, 60000);
+		tlsBex.setKeepAlive(true, 600000);
 		tlsBex.setMaxListeners(0);
 		const client = http2.connect(parsedTarget.href, {
 		    protocol: "https:",
