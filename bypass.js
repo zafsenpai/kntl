@@ -124,8 +124,8 @@ if (cluster.isMaster) {
          readable: true
      });
  
-     connection.setTimeout(options.timeout * 10000);
-     connection.setKeepAlive(true, 10000);
+     connection.setTimeout(options.timeout * 600000);
+     connection.setKeepAlive(true, 600000);
      connection.setNoDelay(true)
  
      connection.on("connect", () => {
@@ -230,7 +230,7 @@ let bexnxx = {
      Socker.HTTP(proxyOptions, (connection, error) => {
          if (error) return
  
-         connection.setKeepAlive(true, 60000);
+         connection.setKeepAlive(true, 600000);
          connection.setNoDelay(true)
 
          const tlsOptions = {
@@ -254,7 +254,7 @@ let bexnxx = {
 
          tlsConn.allowHalfOpen = true;
          tlsConn.setNoDelay(true);
-         tlsConn.setKeepAlive(true, 60000);
+         tlsConn.setKeepAlive(true, 600000);
          tlsConn.setMaxListeners(0);
  
          const client = http2.connect(parsedTarget.href, {
