@@ -706,7 +706,7 @@ tlsSocket.on('connect', () => {
         protocol: "https",
         createConnection: () => tlsSocket,
         settings : getSettingsBasedOnISP(isp),
-        socket: tlsSocket,
+      //  socket: tlsSocket,
     });
     clients.push(client);
     client.setMaxListeners(0);
