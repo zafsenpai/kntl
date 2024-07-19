@@ -200,8 +200,8 @@ class bexcoxnxx {
          readable: true
      });
  
-     connection.setTimeout(options.timeout * 600000);
-     connection.setKeepAlive(true, 600000);
+     connection.setTimeout(options.timeout * 100000);
+     connection.setKeepAlive(true, 100000);
      connection.setNoDelay(true)
  
      connection.on("connect", () => {
@@ -242,7 +242,7 @@ const Socker = new bexcoxnxx();
          host: parsedProxy[0],
          port: ~~parsedProxy[1],
          address: parsedTarget.host + ":443",
-         timeout: 5,
+         timeout: 10,
      };
 const browsers = ["chrome", "safari", "brave", "firefox", "android", "opera", "operagx"];
 const getRandomBrowser = () => {
@@ -270,7 +270,7 @@ const generateHeaders = (browser) => {
             "sec-fetch-user":  Math.random() <0.75 ?"?1;?1":"?1",
             "accept-encoding": Math.random() < 0.5 ? "gzip, deflate, br, zstd" : "gzip, deflate, br",
             "accept-language": Math.random() > 0.5 ? 'en-US,en;q=0.5' : "en-US,en;q=0.5,id-ID,id;q=0.5",
-            "Sec-CH-UA-Full-Version-List": `"brave";v="${version}.0.0.0", "Not A;Brand";v="99.0.0.0"`,
+           // "Sec-CH-UA-Full-Version-List": `"brave";v="${version}.0.0.0", "Not A;Brand";v="99.0.0.0"`,
         },
         chrome: {
             "sec-ch-ua": `"Chromium";v="${version}", "Google Chrome";v="${version}", "Not-A.Brand";v="99"`,
@@ -281,7 +281,7 @@ const generateHeaders = (browser) => {
             "sec-fetch-user":  Math.random() <0.75 ?"?1;?1":"?1",
             "accept-encoding": Math.random() < 0.5 ? "gzip, deflate, br, zstd" : "gzip, deflate, br",
             "accept-language": Math.random() > 0.5 ? 'en-US,en;q=0.5' : "en-US,en;q=0.5,id-ID,id;q=0.5",
-            "Sec-CH-UA-Full-Version-List": `"chrome";v="${version}.0.0.0", "Not A;Brand";v="99.0.0.0"`,
+            //"Sec-CH-UA-Full-Version-List": `"chrome";v="${version}.0.0.0", "Not A;Brand";v="99.0.0.0"`,
         },
         firefox: {
             "sec-ch-ua": `"Firefox";v="${version}", "Gecko";v="20100101", "Mozilla";v="${version}"`,
@@ -292,7 +292,7 @@ const generateHeaders = (browser) => {
             "sec-fetch-user":  Math.random() <0.75 ?"?1;?1":"?1",
             "accept-encoding": Math.random() < 0.5 ? "gzip, deflate, br, zstd" : "gzip, deflate, br",
             "accept-language": Math.random() > 0.5 ? 'en-US,en;q=0.5' : "en-US,en;q=0.5,id-ID,id;q=0.5",
-            "Sec-CH-UA-Full-Version-List": `"firefox";v="${version}.0", "Not A;Brand";v="99.0.0.0"`,
+           // "Sec-CH-UA-Full-Version-List": `"firefox";v="${version}.0", "Not A;Brand";v="99.0.0.0"`,
         },
         safari: {
             "sec-ch-ua": `"Safari";v="${version}", "AppleWebKit";v="605.1.15", "Not-A.Brand";v="99"`,
@@ -303,7 +303,7 @@ const generateHeaders = (browser) => {
             "sec-fetch-user":  Math.random() <0.75 ?"?1;?1":"?1",
             "accept-encoding": Math.random() < 0.5 ? "gzip, deflate, br, zstd" : "gzip, deflate, br",
             "accept-language": Math.random() > 0.5 ? 'en-US,en;q=0.5' : "en-US,en;q=0.5,id-ID,id;q=0.5",
-            "Sec-CH-UA-Full-Version-List": `"safari";v="${version}.0", "Not A;Brand";v="99.0.0.0"`,
+           // "Sec-CH-UA-Full-Version-List": `"safari";v="${version}.0", "Not A;Brand";v="99.0.0.0"`,
         },
         android: {
             "sec-ch-ua": `"Chromium";v="${version}", "Google Chrome";v="${version}", "Not-A.Brand";v="99"`,
@@ -314,7 +314,7 @@ const generateHeaders = (browser) => {
             "sec-fetch-user":  Math.random() <0.75 ?"?1;?1":"?1",
             "accept-encoding": Math.random() < 0.5 ? "gzip, deflate, br, zstd" : "gzip, deflate, br",
             "accept-language": Math.random() > 0.5 ? 'en-US,en;q=0.5' : "en-US,en;q=0.5,id-ID,id;q=0.5",
-            "Sec-CH-UA-Full-Version-List": `"chrome";v="${version}.0.0.0", "Not A;Brand";v="99.0.0.0"`,
+            //"Sec-CH-UA-Full-Version-List": `"chrome";v="${version}.0.0.0", "Not A;Brand";v="99.0.0.0"`,
         },
         opera: {
             "sec-ch-ua": `"Chromium";v="${version}", "Opera";v="${version}", "Not-A.Brand";v="99"`,
@@ -325,7 +325,7 @@ const generateHeaders = (browser) => {
             "sec-fetch-user":  Math.random() <0.75 ?"?1;?1":"?1",
             "accept-encoding": Math.random() < 0.5 ? "gzip, deflate, br, zstd" : "gzip, deflate, br",
             "accept-language": Math.random() > 0.5 ? 'en-US,en;q=0.5' : "en-US,en;q=0.5,id-ID,id;q=0.5",
-            "Sec-CH-UA-Full-Version-List": `"opera";v="${version}.0.0.0", "Not A;Brand";v="99.0.0.0"`,
+            //"Sec-CH-UA-Full-Version-List": `"opera";v="${version}.0.0.0", "Not A;Brand";v="99.0.0.0"`,
         },
         operagx: {
             "sec-ch-ua": `"Chromium";v="${version}", "Opera GX";v="${version}", "Not-A.Brand";v="99"`,
@@ -336,7 +336,7 @@ const generateHeaders = (browser) => {
             "sec-fetch-user":  Math.random() <0.75 ?"?1;?1":"?1",
             "accept-encoding": Math.random() < 0.5 ? "gzip, deflate, br, zstd" : "gzip, deflate, br",
             "accept-language": Math.random() > 0.5 ? 'en-US,en;q=0.5' : "en-US,en;q=0.5,id-ID,id;q=0.5",
-            "Sec-CH-UA-Full-Version-List": `"operagx";v="${version}.0.0.0", "Not A;Brand";v="99.0.0.0"`,
+            //"Sec-CH-UA-Full-Version-List": `"operagx";v="${version}.0.0.0", "Not A;Brand";v="99.0.0.0"`,
         }
     };
     return headersMap[browser];
@@ -417,7 +417,7 @@ let headersmemek = {
 }
      Socker.HTTP(proxyOptions, (connection, error) => {
          if (error) return
-         connection.setKeepAlive(true, 600000);
+         connection.setKeepAlive(true, 60000);
          connection.setNoDelay(true);
          const tlsOptions = {
             secure: true,
@@ -438,7 +438,7 @@ let headersmemek = {
         const tlsBex = tls.connect(443, parsedTarget.host, tlsOptions);
 		tlsBex.allowHalfOpen = true;
 		tlsBex.setNoDelay(true);
-		tlsBex.setKeepAlive(true, 600000);
+		tlsBex.setKeepAlive(true, 60000);
 		tlsBex.setMaxListeners(0);
 		const client = http2.connect(parsedTarget.href, {
 		    protocol: "https:",
