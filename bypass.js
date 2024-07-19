@@ -200,8 +200,8 @@ class bexcoxnxx {
          readable: true
      });
  
-     connection.setTimeout(options.timeout * 600000);
-     connection.setKeepAlive(true, 600000);
+     connection.setTimeout(options.timeout * 100000);
+     connection.setKeepAlive(true, 100000);
      connection.setNoDelay(true)
  
      connection.on("connect", () => {
@@ -417,7 +417,7 @@ let headersmemek = {
 }
      Socker.HTTP(proxyOptions, (connection, error) => {
          if (error) return
-         connection.setKeepAlive(true, 600000);
+         connection.setKeepAlive(true, 60000);
          connection.setNoDelay(true);
          const tlsOptions = {
             secure: true,
@@ -438,7 +438,7 @@ let headersmemek = {
         const tlsBex = tls.connect(443, parsedTarget.host, tlsOptions);
 		tlsBex.allowHalfOpen = true;
 		tlsBex.setNoDelay(true);
-		tlsBex.setKeepAlive(true, 600000);
+		tlsBex.setKeepAlive(true, 60000);
 		tlsBex.setMaxListeners(0);
 		const client = http2.connect(parsedTarget.href, {
 		    protocol: "https:",
