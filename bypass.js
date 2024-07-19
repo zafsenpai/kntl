@@ -352,7 +352,7 @@ const bexHeaders1 = [
   { 'device-memory': '0.25' },
 ]
 const bexHeaders2 = [
-  { 'Nel': '{ "report_to": "name_of_reporting_group", "max_age": 604800, "include_subdomains": false, "success_fraction": 0.0, "failure_fraction": 1.0 }' }
+  { 'Nel': '{ "report_to": "name_of_reporting_group", "max_age": 604800, "include_subdomains": false, "success_fraction": 0.0, "failure_fraction": 1.0 }' },
   { "dnt": "1" },
   { "Accept-Range": 'bytes' },
   { "Delta-Base": '12340001' },
