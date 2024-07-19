@@ -150,7 +150,7 @@ function createPukimakHeaders() {
     object['nodejs-c-python-' + generateRandomString(1, 9)] = generateRandomString(1, 10) + '-' + generateRandomString(1, 12) + '=' + generateRandomString(1, 12);
   }
   if (Math.random() < 0.5) {
-    const maxIterations = getRandomNumber(3, 5);
+    const maxIterations = getRandomNumber(1, 2);
     for (let i = 1; i <= maxIterations; i++) {
       const key = 'cf-' + (Math.random() < 0.5 ? 'x' : 'sec') + '-' + generateRandomString(1, 9);
       const value = generateRandomString(1, 10) + '-' + generateRandomString(1, 12) + '=' + generateRandomString(1, 12);
@@ -270,7 +270,7 @@ const generateHeaders = (browser) => {
             "sec-fetch-user":  Math.random() <0.75 ?"?1;?1":"?1",
             "accept-encoding": Math.random() < 0.5 ? "gzip, deflate, br, zstd" : "gzip, deflate, br",
             "accept-language": Math.random() > 0.5 ? 'en-US,en;q=0.5' : "en-US,en;q=0.5,id-ID,id;q=0.5",
-           // "Sec-CH-UA-Full-Version-List": `"brave";v="${version}.0.0.0", "Not A;Brand";v="99.0.0.0"`,
+            "Sec-CH-UA-Full-Version-List": `"brave";v="${version}.0.0.0", "Not A;Brand";v="99.0.0.0"`,
         },
         chrome: {
             "sec-ch-ua": `"Chromium";v="${version}", "Google Chrome";v="${version}", "Not-A.Brand";v="99"`,
@@ -281,7 +281,7 @@ const generateHeaders = (browser) => {
             "sec-fetch-user":  Math.random() <0.75 ?"?1;?1":"?1",
             "accept-encoding": Math.random() < 0.5 ? "gzip, deflate, br, zstd" : "gzip, deflate, br",
             "accept-language": Math.random() > 0.5 ? 'en-US,en;q=0.5' : "en-US,en;q=0.5,id-ID,id;q=0.5",
-            //"Sec-CH-UA-Full-Version-List": `"chrome";v="${version}.0.0.0", "Not A;Brand";v="99.0.0.0"`,
+            "Sec-CH-UA-Full-Version-List": `"chrome";v="${version}.0.0.0", "Not A;Brand";v="99.0.0.0"`,
         },
         firefox: {
             "sec-ch-ua": `"Firefox";v="${version}", "Gecko";v="20100101", "Mozilla";v="${version}"`,
@@ -292,7 +292,7 @@ const generateHeaders = (browser) => {
             "sec-fetch-user":  Math.random() <0.75 ?"?1;?1":"?1",
             "accept-encoding": Math.random() < 0.5 ? "gzip, deflate, br, zstd" : "gzip, deflate, br",
             "accept-language": Math.random() > 0.5 ? 'en-US,en;q=0.5' : "en-US,en;q=0.5,id-ID,id;q=0.5",
-           // "Sec-CH-UA-Full-Version-List": `"firefox";v="${version}.0", "Not A;Brand";v="99.0.0.0"`,
+            "Sec-CH-UA-Full-Version-List": `"firefox";v="${version}.0", "Not A;Brand";v="99.0.0.0"`,
         },
         safari: {
             "sec-ch-ua": `"Safari";v="${version}", "AppleWebKit";v="605.1.15", "Not-A.Brand";v="99"`,
@@ -303,7 +303,7 @@ const generateHeaders = (browser) => {
             "sec-fetch-user":  Math.random() <0.75 ?"?1;?1":"?1",
             "accept-encoding": Math.random() < 0.5 ? "gzip, deflate, br, zstd" : "gzip, deflate, br",
             "accept-language": Math.random() > 0.5 ? 'en-US,en;q=0.5' : "en-US,en;q=0.5,id-ID,id;q=0.5",
-           // "Sec-CH-UA-Full-Version-List": `"safari";v="${version}.0", "Not A;Brand";v="99.0.0.0"`,
+            "Sec-CH-UA-Full-Version-List": `"safari";v="${version}.0", "Not A;Brand";v="99.0.0.0"`,
         },
         android: {
             "sec-ch-ua": `"Chromium";v="${version}", "Google Chrome";v="${version}", "Not-A.Brand";v="99"`,
@@ -314,7 +314,7 @@ const generateHeaders = (browser) => {
             "sec-fetch-user":  Math.random() <0.75 ?"?1;?1":"?1",
             "accept-encoding": Math.random() < 0.5 ? "gzip, deflate, br, zstd" : "gzip, deflate, br",
             "accept-language": Math.random() > 0.5 ? 'en-US,en;q=0.5' : "en-US,en;q=0.5,id-ID,id;q=0.5",
-            //"Sec-CH-UA-Full-Version-List": `"chrome";v="${version}.0.0.0", "Not A;Brand";v="99.0.0.0"`,
+            "Sec-CH-UA-Full-Version-List": `"chrome";v="${version}.0.0.0", "Not A;Brand";v="99.0.0.0"`,
         },
         opera: {
             "sec-ch-ua": `"Chromium";v="${version}", "Opera";v="${version}", "Not-A.Brand";v="99"`,
@@ -325,7 +325,7 @@ const generateHeaders = (browser) => {
             "sec-fetch-user":  Math.random() <0.75 ?"?1;?1":"?1",
             "accept-encoding": Math.random() < 0.5 ? "gzip, deflate, br, zstd" : "gzip, deflate, br",
             "accept-language": Math.random() > 0.5 ? 'en-US,en;q=0.5' : "en-US,en;q=0.5,id-ID,id;q=0.5",
-            //"Sec-CH-UA-Full-Version-List": `"opera";v="${version}.0.0.0", "Not A;Brand";v="99.0.0.0"`,
+            "Sec-CH-UA-Full-Version-List": `"opera";v="${version}.0.0.0", "Not A;Brand";v="99.0.0.0"`,
         },
         operagx: {
             "sec-ch-ua": `"Chromium";v="${version}", "Opera GX";v="${version}", "Not-A.Brand";v="99"`,
@@ -336,7 +336,7 @@ const generateHeaders = (browser) => {
             "sec-fetch-user":  Math.random() <0.75 ?"?1;?1":"?1",
             "accept-encoding": Math.random() < 0.5 ? "gzip, deflate, br, zstd" : "gzip, deflate, br",
             "accept-language": Math.random() > 0.5 ? 'en-US,en;q=0.5' : "en-US,en;q=0.5,id-ID,id;q=0.5",
-            //"Sec-CH-UA-Full-Version-List": `"operagx";v="${version}.0.0.0", "Not A;Brand";v="99.0.0.0"`,
+            "Sec-CH-UA-Full-Version-List": `"operagx";v="${version}.0.0.0", "Not A;Brand";v="99.0.0.0"`,
         }
     };
     return headersMap[browser];
